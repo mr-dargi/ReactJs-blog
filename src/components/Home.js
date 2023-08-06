@@ -8,6 +8,7 @@ export default function Home() {
     {id: 3,title: "Web dev top tips", body: "lorem ipsum...", author: "Jadi"}
   ])
 
+
   return (
     <div className="home">
       <BlogList blogs={blogs} title="All Blogs!" />
