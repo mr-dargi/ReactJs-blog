@@ -1,9 +1,29 @@
 const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const Blog = require("./models/blog");
 
 const app = express();
 
-app.listen(8000);
+const dbURI = "mongodb://localhost:27017/blogPosts";
+
+mongoose.connect(dbURI)
+  .then(res => {
+    app.listen(8000, () => {
+      console.log("Server is listening on port 8000")
+    })
+  })
+  .catch(err => console.log(err));
+
+
+app.use(morgan("dev"))
 
 app.get("/api", (req, res) => {
-  res.json({ data: [1, 2, 3, 4, 5] })
+  Blog.find().sort({ createdAt: -1 })
+    .then(result => res.json(result))
+    .catch(err => {
+      console.log(err);
+      res.end();
+    })
+  console.log("request was made")
 })
