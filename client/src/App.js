@@ -1,13 +1,18 @@
-import './App.css';
 import Navbar from "./components/Navbar";
-import Home from "./components/Home"
+import Home from "./components/Home";
+import { Routes, Route } from "react-router-dom";
+import './App.css';
+import CreateNewBlog from "./components/CreateNewBlog";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <div className="content">
-        <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog/create" element={<CreateNewBlog />} />
+        </Routes>
       </div>
     </div>
   );
