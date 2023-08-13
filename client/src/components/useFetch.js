@@ -7,7 +7,8 @@ export default function useFetch(url) {
 
 
   useEffect(() => {
-    fetch(url)
+    const abortController = new AbortController();
+    fetch(url, { signal: abortController.signal })
       .then(res => {
         if(!res.ok) {
           throw Error("Could not fetch the data for that resource");
@@ -19,8 +20,12 @@ export default function useFetch(url) {
         setData(data);
       })
       .catch(err => {
-        setError(err.message);
+        if(err.name !== "AbortError") {
+          setError(err.message);
+        }
       })
+
+    return () => abortController.abort();
   }, [url])
 
   return {data, isDataReceive, error}
