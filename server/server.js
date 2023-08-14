@@ -26,4 +26,16 @@ app.get("/api", (req, res) => {
       res.end();
     })
   console.log("request was made")
+});
+
+app.get("/api/:id", (req, res) => {
+  const id = req.params.id;
+
+  Blog.findById(id)
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => {
+      res.json("Could not fetch the data!!!")
+    })
 })
