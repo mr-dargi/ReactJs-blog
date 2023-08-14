@@ -4,7 +4,6 @@ import useFetch from "./useFetch";
 export default function BlogDetails() {
   const { id } = useParams();
   const {data, isDataReceive, error} = useFetch("/api/" + id);
-  console.log(data);
 
   if(error) {
     return  (
@@ -16,11 +15,13 @@ export default function BlogDetails() {
     )
   } else {
     return (
-      <article>
-        <h2>{data.title}</h2>
-        <p>Written by { data.author }</p>
-        <div>{ data.body }</div>
-      </article>
+      <div className="blog-details">
+        <article>
+          <h2>{data.title}</h2>
+          <p>Written by { data.author }</p>
+          <div>{ data.body }</div>
+        </article>
+      </div>
     )
   }
 }
