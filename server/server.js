@@ -3,20 +3,21 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
 
-const app = express();
 
 const dbURI = "mongodb://localhost:27017/blogPosts";
 
 mongoose.connect(dbURI)
-  .then(res => {
-    app.listen(8000, () => {
-      console.log("Server is listening on port 8000")
-    })
+.then(res => {
+  app.listen(8000, () => {
+    console.log("Server is listening on port 8000")
   })
-  .catch(err => console.log(err));
+})
+.catch(err => console.log(err));
 
 
-app.use(morgan("dev"))
+const app = express();
+app.use(express.json());
+app.use(morgan("dev"));
 
 app.get("/api", (req, res) => {
   Blog.find().sort({ createdAt: -1 })
@@ -38,4 +39,12 @@ app.get("/api/:id", (req, res) => {
     .catch(err => {
       res.json("Could not fetch the data!!!")
     })
+})
+
+app.post("/create/blog", (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog.save()
+    .then(result => res.json("Blog post saved."))
+    .catch(err => res.json("There is some problem to save data!"))
 })

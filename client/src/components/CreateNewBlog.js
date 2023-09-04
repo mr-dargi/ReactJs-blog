@@ -3,8 +3,8 @@ import { useState } from "react"
 export default function CreateNewBlog() {
   const [formData, setFormData] = useState({
     title: "",
-    body: "",
-    author: ""
+    author: "",
+    body: ""
   });
 
   const handleChange = event => {
@@ -17,7 +17,21 @@ export default function CreateNewBlog() {
     }))
   }
 
-  console.log(formData);
+  const submitHandle = async (event) => {
+    event.preventDefault();
+    const result = await fetch(
+      "/create/blog",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
+      }
+    ).then(res => res.json());
+
+    alert(result);
+  }
 
   return (
    <div className="create">
@@ -49,7 +63,7 @@ export default function CreateNewBlog() {
         <option value="Amir Mohammad">Amir Mohammad</option>
         <option value="Jadi">Jadi</option>
       </select>
-      <button>Add Blog</button>
+      <button onClick={submitHandle}>Add Blog</button>
     </form>
    </div>
   )
