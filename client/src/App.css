@@ -59,6 +59,11 @@
 }
 
 /* blog details page  */
+.blog-details {
+  display: flex;
+  justify-content: space-between;
+}
+
 .blog-details h2 {
   font-size: 20px;
   color: #f1356d;
@@ -112,4 +117,14 @@
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.delete{
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.delete:hover{
+  cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
 }

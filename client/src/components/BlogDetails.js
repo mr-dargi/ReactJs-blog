@@ -1,9 +1,23 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
+import { ReactComponent as Trashcan } from "./trashcan.svg";
 
 export default function BlogDetails() {
   const { id } = useParams();
   const {data, isDataReceive, error} = useFetch("/api/" + id);
+  const navigate = useNavigate();
+
+  const handleClick = async (id) => {
+    const result = await fetch(
+                    `/remove/blog/${id}`,
+                    {
+                      method: "DELETE"
+                    }
+                  ).then(response => response.json())
+    
+    alert(result);
+    navigate("/");
+  }
 
   if(error) {
     return  (
@@ -21,6 +35,9 @@ export default function BlogDetails() {
           <p>Written by { data.author }</p>
           <div>{ data.body }</div>
         </article>
+        <a class="delete" onClick={ () => handleClick(id) }>
+          <Trashcan />
+        </a>
       </div>
     )
   }

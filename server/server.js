@@ -17,7 +17,9 @@ mongoose.connect(dbURI)
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+
 
 app.get("/api", (req, res) => {
   Blog.find().sort({ createdAt: -1 })
@@ -28,6 +30,7 @@ app.get("/api", (req, res) => {
     })
   console.log("request was made")
 });
+
 
 app.get("/api/:id", (req, res) => {
   const id = req.params.id;
@@ -41,10 +44,21 @@ app.get("/api/:id", (req, res) => {
     })
 })
 
+
 app.post("/create/blog", (req, res) => {
   const blog = new Blog(req.body);
 
   blog.save()
     .then(result => res.json("Blog post saved."))
     .catch(err => res.json("There is some problem to save data!"))
+})
+
+
+app.delete("/remove/blog/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  Blog.findByIdAndDelete(id)
+    .then(result => res.json("Blog post deleted."))
+    .catch(err => res.json("Something went wrong, plase try again later!"));
 })
