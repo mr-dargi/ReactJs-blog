@@ -35,9 +35,11 @@ export default function BlogDetails() {
           <p>Written by { data.author }</p>
           <div>{ data.body }</div>
         </article>
-        <a class="delete" onClick={ () => handleClick(id) }>
-          <Trashcan />
-        </a>
+        <div>
+          <a class="delete" onClick={ () => handleClick(id) }>
+            <Trashcan />
+          </a>
+        </div>
       </div>
     )
   }

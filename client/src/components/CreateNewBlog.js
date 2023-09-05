@@ -59,7 +59,7 @@ export default function CreateNewBlog() {
         onChange={handleChange}
       >
         <option value="">-- Choose Option --</option>
-        <option value="Mohammad Reza Dargi">Mohammad Reza Dargi</option>
+        <option value="Mohammad Reza Dargi">Mohammad Reza</option>
         <option value="Amir Mohammad">Amir Mohammad</option>
         <option value="Jadi">Jadi</option>
       </select>
